@@ -12,7 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.simple.bean.Resp;
 import com.example.simple.service.HelloService;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 
 
@@ -22,23 +26,25 @@ import com.example.simple.service.HelloService;
  * @date 2019年11月8日
  */
 
+@Api(tags="测试接口模块")
 @RestController
 @RequestMapping("/hello")
 public class HelloController {
 	@Autowired
 	HelloService helloService;
 	
+	
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	public String get() {
 	
-		return "hello";
+		return "hello!!";
 
 	}
 
 	
-
+	@ApiOperation(value="获取用户信息", notes = "获取用户信息")
 	@RequestMapping(value = "/get/person/list", method = RequestMethod.GET)
-	public String getPersonList() {
+	public Resp getPersonList() {
 	
 		return helloService.getPersonList();
 
