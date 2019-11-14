@@ -45,7 +45,7 @@ public class HelloController {
     	log1.info("getBussinessLogger===日志测试");
     	log2.debug("getDBLogger===日志测试");
 
-		return "hello!!";
+		return "hello!!!";
 
 	}
 
