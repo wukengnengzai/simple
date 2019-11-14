@@ -9,6 +9,8 @@ import com.example.simple.bean.Person;
 import com.example.simple.bean.Resp;
 import com.example.simple.dao.HelloMapper;
 import com.example.simple.service.HelloService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @Service
 public class HelloServiceImpl implements HelloService{
@@ -19,11 +21,14 @@ public class HelloServiceImpl implements HelloService{
 	public Resp getPersonList() {
 		Resp resp = new Resp();
 		try {
+		PageHelper.startPage(0, 3);
+		     
 			List<Person> personList =helloMapper.getPersonList();
+			PageInfo<Person> pageInfo = new PageInfo<Person>(personList);
 			System.out.println(personList);
 			resp.setCode("200");
 			resp.setMsg("success");
-			resp.setData(personList);
+			resp.setData(pageInfo);
 		} catch (Exception e) {
 			e.printStackTrace();
 			resp.setCode("500");

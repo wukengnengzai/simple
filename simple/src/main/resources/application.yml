@@ -21,8 +21,16 @@ spring:
 logging:
   config: classpath:log4j2.yml 
   
-log:
-  path:D/  
+#pagehelper分页插件
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+    
 
+mybatis:
+  mapper-locations: classpath:mapper/*.xml     #mapper文件路径
+  type-aliases-package: com.example.simple.bean   #实体类的包路径    
 
     

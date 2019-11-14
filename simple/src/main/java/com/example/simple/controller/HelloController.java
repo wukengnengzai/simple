@@ -7,6 +7,8 @@
 */
 package com.example.simple.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.simple.bean.Resp;
+import com.example.simple.bean.User;
+import com.example.simple.bean.UserExample;
+import com.example.simple.dao.UserMapper;
 import com.example.simple.service.HelloService;
 import com.example.simple.util.LogUtils;
 
@@ -34,6 +39,8 @@ import io.swagger.annotations.ApiOperation;
 public class HelloController {
 	@Autowired
 	HelloService helloService;
+	@Autowired
+	UserMapper userMapper;
 	
 	
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
@@ -44,8 +51,30 @@ public class HelloController {
     	log.error("getExceptionLogger===日志测试");
     	log1.info("getBussinessLogger===日志测试");
     	log2.debug("getDBLogger===日志测试");
+    	// 创建 Example 对象
+    	UserExample example = new UserExample();
+		// 设置排序规则
+		example.setOrderByClause("id desc, name asc");
+		// 设置是否 distinct 去重
+		example.setDistinct(true);
+		// 创建条件，只能有一个 createCriteria
+		UserExample.Criteria criteria = example.createCriteria();
+		// id >= 1
+		criteria.andIdGreaterThanOrEqualTo("1");
+		// id < 4
+		criteria.andIdLessThan("4");
+		// countrycode like '%U%'
+		// 最容易出错的地方，注意 like 必须自己写上通配符的位置，不可能默认两边加 %，like 可以是任何情况
+		criteria.andNameLike("%小%");
+		// or 的情况，可以有多个 or
+		UserExample.Criteria or = example.or();
+		// countryname = 中国
+		or.andAddressEqualTo("中国");
+		// 执行查询
+		List<User> list =userMapper.selectByExample(example);
+		System.out.println(list.size());
 
-		return "hello!!";
+		return "aa";
 
 	}
 
