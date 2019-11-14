@@ -74,7 +74,10 @@ public class HelloController {
 		List<User> list =userMapper.selectByExample(example);
 		System.out.println(list.size());
 
-		return "aa";
+
+
+		return "hello!!!";
+
 
 	}
 
