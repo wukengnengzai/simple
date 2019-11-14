@@ -13,9 +13,16 @@ spring:
     restart:
       enabled: true  #设置开启热部署
       additional-paths: src/main/java #重启目录
-      exclude: WEB-INF/**
+      exclude: WEB-INF/** #排除静态目录
   freemarker:
     cache: false    #页面不加载缓存，修改即时生效
+    
+    
+logging:
+  config: classpath:log4j2.yml 
+  
+log:
+  path:D/  
 
 
     

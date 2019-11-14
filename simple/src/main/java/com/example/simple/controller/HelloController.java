@@ -7,6 +7,7 @@
 */
 package com.example.simple.controller;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.simple.bean.Resp;
 import com.example.simple.service.HelloService;
+import com.example.simple.util.LogUtils;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,7 +38,13 @@ public class HelloController {
 	
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	public String get() {
-	
+		Logger log = LogUtils.getExceptionLogger();
+    	Logger log1 = LogUtils.getBussinessLogger();
+    	Logger log2 = LogUtils.getDBLogger();
+    	log.error("getExceptionLogger===日志测试");
+    	log1.info("getBussinessLogger===日志测试");
+    	log2.debug("getDBLogger===日志测试");
+
 		return "hello!!";
 
 	}
